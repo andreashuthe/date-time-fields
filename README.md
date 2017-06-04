@@ -53,7 +53,7 @@ Contributions are welcome, but there are no guarantees that they are accepted as
 
 Add-on is distributed under Apache License 2.0. For license terms, see LICENSE.txt.
 
-DateTimeField is written by [Stefan Erichsen](https://github.com/Dr4K4n)
+DateTimeField is written by [Andreas Huth](https://github.com/andreashuthe)
 
 # Developer Guide
 
@@ -69,4 +69,4 @@ fieldGroup.setFieldFactory(new JodaTimeFieldGroupFieldFactory());
 addComponent(fieldGroup.buildAndBind("dateTime"));
 ```
 
-For a more comprehensive example, see [date-time-fields-demo/src/main/java/org/vaadin/demo/DemoUI.java](../../blob/master/joda-time-fields-demo/src/main/java/org/vaadin/demo/DemoUI.java)
+For a more comprehensive example, see [date-time-fields-demo/src/main/java/org/vaadin/demo/DemoUI.java](../../blob/master/date-time-fields-demo/src/main/java/org/vaadin/demo/DemoUI.java)
