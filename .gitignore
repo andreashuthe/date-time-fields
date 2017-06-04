@@ -2,12 +2,14 @@
 /date-time-fields/.settings
 /date-time-fields/.project
 /date-time-fields/.classpath
+/date-time-fields/*.iml
 /date-time-fields/target
 /date-time-fields-demo/.settings
 /date-time-fields-demo/.project
 /date-time-fields-demo/.classpath
+/date-time-fields-demo/*.iml
 /date-time-fields-demo/target
 /.settings
 /.project
-/.iml
+/*.iml
 /.idea
