@@ -1,10 +1,10 @@
-# joda-time-fields Add-on for Vaadin 7
+# date-time-fields Add-on for Vaadin 7
 
-joda-time-fields is a UI component add-on for Vaadin 7. At the moment it adds Field-Components for DateTime, LocalTime and Interval.
+date-time-fields is a UI component add-on for Vaadin 7. At the moment it adds Field-Components for DateTime, LocalTime and Interval.
 
 ## Online demo
 
-Try the add-on demo at <http://dr4k4n.de:8180/joda-time-fields-demo/>
+Not available
 
 ## Download release
 
@@ -13,28 +13,13 @@ Official releases of this add-on are available at Vaadin Directory. For Maven in
 ## Building and running demo
 
 ```bash
-git clone git@github.com:Dr4K4n/joda-time-fields.git
+git clone git@github.com:andreashuthe/date-time-fields.git
 mvn clean install
 cd demo
 mvn jetty:run
 ```
 
 To see the demo, navigate to <http://localhost:8080/>
-
-## Development with Eclipse IDE
-
-For further development of this add-on, the following tool-chain is recommended:
-- Eclipse IDE
-- m2e wtp plug-in (install it from Eclipse Marketplace)
-- Vaadin Eclipse plug-in (install it from Eclipse Marketplace)
-- JRebel Eclipse plug-in (install it from Eclipse Marketplace)
-- Chrome browser
-
-### Importing project
-
-Choose File > Import... > Existing Maven Projects
-
-Note that Eclipse may give "Plugin execution not covered by lifecycle configuration" errors for pom.xml. Use "Permanently mark goal resources in pom.xml as ignored in Eclipse build" quick-fix to mark these errors as permanently ignored in your project. Do not worry, the project still works fine. 
 
 ### Debugging server-side
 
@@ -77,11 +62,11 @@ DateTimeField is written by [Stefan Erichsen](https://github.com/Dr4K4n)
 Here is a simple example on how to try out the add-on component:
 
 ```java
-final JodaTimeDemoBean demoBean = new JodaTimeDemoBean();
-BeanItem<JodaTimeDemoBean> demoBeanItem = new BeanItem<JodaTimeDemoBean>(demoBean);
+final DateTimeDemoBean demoBean = new DateTimeDemoBean();
+BeanItem<DateTimeDemoBean> demoBeanItem = new BeanItem<DateTimeDemoBean>(demoBean);
 final FieldGroup fieldGroup = new FieldGroup(demoBeanItem);
 fieldGroup.setFieldFactory(new JodaTimeFieldGroupFieldFactory());
 addComponent(fieldGroup.buildAndBind("dateTime"));
 ```
 
-For a more comprehensive example, see [joda-time-fields-demo/src/main/java/com/prodyna/vaadin/demo/DemoUI.java](../../blob/master/joda-time-fields-demo/src/main/java/com/prodyna/vaadin/demo/DemoUI.java)
+For a more comprehensive example, see [date-time-fields-demo/src/main/java/org/vaadin/demo/DemoUI.java](../../blob/master/joda-time-fields-demo/src/main/java/org/vaadin/demo/DemoUI.java)
