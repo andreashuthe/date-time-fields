@@ -13,7 +13,7 @@ import java.util.Locale;
 /**
  * Created by andreas_h on 04.06.17.
  */
-public class DateTimeShortcutListener extends ShortcutListener {
+public class DateTimeShortCutListener extends ShortcutListener {
 
     private final Locale locale;
     private final DateTimeZone dateTimeZone;
@@ -25,7 +25,7 @@ public class DateTimeShortcutListener extends ShortcutListener {
      * @param shortCutDateEnum
      * @param dateTimeZone
      */
-    public DateTimeShortcutListener(Locale locale, ShortCutDateEnum shortCutDateEnum, DateTimeZone dateTimeZone) {
+    public DateTimeShortCutListener(Locale locale, ShortCutDateEnum shortCutDateEnum, DateTimeZone dateTimeZone) {
         this (locale, shortCutDateEnum, dateTimeZone, null);
     }
 
@@ -36,7 +36,7 @@ public class DateTimeShortcutListener extends ShortcutListener {
      * @param dateTimeZone
      * @param caption
      */
-    public DateTimeShortcutListener(Locale locale, ShortCutDateEnum shortCutDateEnum, DateTimeZone dateTimeZone, String caption) {
+    public DateTimeShortCutListener(Locale locale, ShortCutDateEnum shortCutDateEnum, DateTimeZone dateTimeZone, String caption) {
         super(caption == null ? shortCutDateEnum.getDesc() : caption, shortCutDateEnum.getKeyCode(), null);
         this.locale = locale;
         this.dateTimeZone = dateTimeZone;

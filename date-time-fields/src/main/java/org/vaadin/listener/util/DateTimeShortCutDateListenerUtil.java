@@ -1,7 +1,7 @@
 package org.vaadin.listener.util;
 
 import org.joda.time.DateTimeZone;
-import org.vaadin.listener.DateTimeShortcutListener;
+import org.vaadin.listener.DateTimeShortCutListener;
 
 import java.util.*;
 
@@ -21,8 +21,8 @@ public class DateTimeShortCutDateListenerUtil {
      * @param locale
      * @return
      */
-    public static List<DateTimeShortcutListener> generateShortcutListener (Locale locale){
-        return generateShortcutListener(locale, DateTimeZone.UTC);
+    public static List<DateTimeShortCutListener> generateShortCutListener(Locale locale){
+        return generateShortCutListener(locale, DateTimeZone.UTC);
     }
 
     /**
@@ -31,9 +31,9 @@ public class DateTimeShortCutDateListenerUtil {
      * @param dateTimeZone
      * @return
      */
-    public static List<DateTimeShortcutListener> generateShortcutListener (final Locale locale, final DateTimeZone dateTimeZone){
+    public static List<DateTimeShortCutListener> generateShortCutListener(final Locale locale, final DateTimeZone dateTimeZone){
 
-        final List<DateTimeShortcutListener> shortcutListenerList = new ArrayList<DateTimeShortcutListener>();
+        final List<DateTimeShortCutListener> shortcutListenerList = new ArrayList<DateTimeShortCutListener>();
 
         final List<ShortCutDateEnum> shortCutDateEnums =  ShortCutDateEnum.getShortCutDateEnums(locale);
 
@@ -41,8 +41,8 @@ public class DateTimeShortCutDateListenerUtil {
 
         if (shortCutDateEnums != null && shortCutDateEnums.size() > 0) {
             for (final ShortCutDateEnum shortCutDateEnum : shortCutDateEnums) {
-                final DateTimeShortcutListener dateTimeShortcutListener = new DateTimeShortcutListener(locale, shortCutDateEnum, dateTimeZone);
-                shortcutListenerList.add(dateTimeShortcutListener);
+                final DateTimeShortCutListener dateTimeShortCutListener = new DateTimeShortCutListener(locale, shortCutDateEnum, dateTimeZone);
+                shortcutListenerList.add(dateTimeShortCutListener);
                 listenerAdd.put(Integer.valueOf(shortCutDateEnum.getType()), Boolean.TRUE);
             }
         }
@@ -50,8 +50,8 @@ public class DateTimeShortCutDateListenerUtil {
         final List<ShortCutDateEnum> shortCutDateEnumsNoLocale = ShortCutDateEnum.getShortCutDateEnums();
         for (final ShortCutDateEnum shortCutDateEnum : shortCutDateEnumsNoLocale) {
             if (!listenerAdd.containsKey(Integer.valueOf(shortCutDateEnum.getType()))) {
-                final DateTimeShortcutListener dateTimeShortcutListener = new DateTimeShortcutListener(locale, shortCutDateEnum, dateTimeZone);
-                shortcutListenerList.add(dateTimeShortcutListener);
+                final DateTimeShortCutListener dateTimeShortCutListener = new DateTimeShortCutListener(locale, shortCutDateEnum, dateTimeZone);
+                shortcutListenerList.add(dateTimeShortCutListener);
                 listenerAdd.put(Integer.valueOf(shortCutDateEnum.getType()), Boolean.TRUE);
             }
         }

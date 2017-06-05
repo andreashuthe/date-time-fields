@@ -9,9 +9,12 @@ import com.vaadin.ui.CustomField;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import org.vaadin.listener.DateTimeShortCutListener;
+
+import java.util.List;
 
 @SuppressWarnings("serial")
-public class IntervalField extends CustomField<Interval> {
+public class IntervalField extends CustomField<Interval> implements IDateTimeField{
 
     private final DateField fromField;
     private final DateField toField;
@@ -77,6 +80,14 @@ public class IntervalField extends CustomField<Interval> {
         }
 
         return result;
+    }
+
+    @Override
+    public void addDateTimeShortCutListener(List<DateTimeShortCutListener> shortCutListeners) {
+        for (final DateTimeShortCutListener shortCutListener : shortCutListeners) {
+            fromField.addShortcutListener(shortCutListener);
+            toField.addShortcutListener(shortCutListener);
+        }
     }
 
     @Override

@@ -2,9 +2,10 @@ package org.vaadin.demo;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.vaadin.annotations.Theme;
 import org.vaadin.components.datetimefields.DateTimeField;
 import org.vaadin.components.datetimefields.IntervalField;
-import org.vaadin.components.datetimefields.JodaTimeFieldGroupFieldFactory;
+import org.vaadin.components.datetimefields.DateTimeFieldGroupFieldFactory;
 import org.vaadin.components.datetimefields.LocalTimeField;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -20,7 +21,8 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-@Title("joda-time-fields Add-on Demo")
+@Title("date-time-fields Add-on Demo")
+@Theme("valo")
 @SuppressWarnings("serial")
 public class DemoUI extends UI {
 
@@ -41,7 +43,7 @@ public class DemoUI extends UI {
         final FieldGroup fieldGroup = new FieldGroup(demoBeanItem);
 
         // We need to set the FieldFactory so that Joda-Time classes are recognized
-        fieldGroup.setFieldFactory(new JodaTimeFieldGroupFieldFactory());
+        fieldGroup.setFieldFactory(new DateTimeFieldGroupFieldFactory());
 
         // Initialize our new UI component
         final DateTimeField dateTimeField = (DateTimeField) fieldGroup.buildAndBind("dateTime");
