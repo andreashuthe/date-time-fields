@@ -1,6 +1,6 @@
 # date-time-fields Add-on for Vaadin 7
 
-date-time-fields is a UI component add-on for Vaadin 7. At the moment it adds Field-Components for DateTime, LocalTime and Interval.
+date-time-fields is a UI component add-on for Vaadin 7. At the moment it adds Field-Components for DateTime, LocalTime, Interval and DateTimeAndLocalTime.
 
 ## Online demo
 
@@ -8,7 +8,7 @@ Not available
 
 ## Download release
 
-Official releases of this add-on are available at Vaadin Directory. For Maven instructions, download and reviews, go to http://vaadin.com/addon/joda-time-fields
+Official releases of this add-on are available at Vaadin Directory. For Maven instructions, download and reviews, go to http://vaadin.com/addon/date-time-fields
 
 ## Building and running demo
 
