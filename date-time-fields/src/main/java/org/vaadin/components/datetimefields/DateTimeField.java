@@ -87,5 +87,14 @@ public class DateTimeField extends DateField implements IDateTimeField {
         return defaultTimeZone;
     }
 
+    @Override
+    public DateTime getConvertedValue() {
+        return (DateTime) super.getConvertedValue();
+    }
 
+    @Override
+    @Deprecated
+    public Date getValue() {
+        return super.getValue();
+    }
 }

@@ -112,19 +112,11 @@ public class DateTimeAndLocalTimeField extends CustomField<DateTime> implements 
 
             return null;
         } else {
-
             dateTime = dateTime.withHourOfDay(localTime.getHourOfDay());
             dateTime = dateTime.withMinuteOfHour(localTime.getMinuteOfHour());
-
-
-
             final MutableDateTime dateTimeWithTimeZone = dateTime.toMutableDateTime(innerDateTimeZone);
-
             return dateTimeWithTimeZone.toDateTime();
-
         }
-
-
     }
 
     @Override
@@ -152,25 +144,10 @@ public class DateTimeAndLocalTimeField extends CustomField<DateTime> implements 
         @Override
         public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
             if (localTimeField.getValue() == null || localTimeField.getValue().equals("")){
+                final DateTime dateTime = dateTimeField.getConvertedValue();
 
-                final StringBuilder sb = new StringBuilder();
-
-                switch (DateTimeAndDefaultTimeEnum.getEnumFromValue(defaultTime) ) {
-                    case NOW:
-                        final LocalTime localTime = LocalTime.now(dateTimeZone);
-
-                        sb.append( localTime.getHourOfDay());
-                        sb.append(':');
-                        sb.append( localTime.getMinuteOfHour());
-
-                        break;
-                    default:
-                        sb.append(defaultTime);
-                        break;
-                }
-
-                localTimeField.setValue(sb.toString());
-
+                final LocalTime localTime = new LocalTime(dateTime.getMillis(), getDateTimeZone());
+                localTimeField.setConvertedValue(localTime);
             }
 
         }

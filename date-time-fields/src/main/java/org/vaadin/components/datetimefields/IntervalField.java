@@ -16,22 +16,20 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class IntervalField extends CustomField<Interval> implements IDateTimeField{
 
-    private final DateField fromField;
-    private final DateField toField;
+    private final DateTimeField fromField;
+    private final DateTimeField toField;
 
     public IntervalField() {
-        fromField = new DateField();
-        toField = new DateField();
+        fromField = new DateTimeField();
+        toField = new DateTimeField();
     }
 
     @Override
     protected Component initContent() {
-        HorizontalLayout layout = new HorizontalLayout();
-
+        final HorizontalLayout layout = new HorizontalLayout();
         layout.addComponent(fromField);
         layout.addComponent(new Label(" - "));
         layout.addComponent(toField);
-
         return layout;
     }
 
@@ -57,9 +55,9 @@ public class IntervalField extends CustomField<Interval> implements IDateTimeFie
     public void setPropertyDataSource(Property newDataSource) {
         super.setPropertyDataSource(newDataSource);
         if (newDataSource != null) {
-            Object newValue = newDataSource.getValue();
+            final Object newValue = newDataSource.getValue();
             if (newValue != null && newValue instanceof Interval) {
-                Interval interval = (Interval) newValue;
+                final Interval interval = (Interval) newValue;
                 fromField.setValue(interval.getStart().toDate());
                 toField.setValue(interval.getEnd().toDate());
             }

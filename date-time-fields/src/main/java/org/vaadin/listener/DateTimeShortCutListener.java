@@ -46,7 +46,6 @@ public class DateTimeShortCutListener extends ShortcutListener {
     @Override
     public void handleAction(Object sender, Object target) {
         if (target instanceof DateTimeField) {
-
             final DateTimeField field = (DateTimeField) target;
             calcDateTimeFieldValue(field, getDateTimeZone());
         } else {

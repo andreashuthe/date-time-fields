@@ -36,7 +36,7 @@ public class LocalTimeField extends TextField {
         @Override
         public LocalTime convertToModel(String value, Class<? extends LocalTime> targetType, Locale locale)
                 throws com.vaadin.data.util.converter.Converter.ConversionException {
-            if (value == null) {
+            if (value == null || value == "") {
                 return null;
             }
 
@@ -57,6 +57,11 @@ public class LocalTimeField extends TextField {
             return formatter;
         }
 
+    }
+
+    @Override
+    public void setConvertedValue(Object value) {
+        super.setConvertedValue(value);
     }
 
     public LocalTimeField() {

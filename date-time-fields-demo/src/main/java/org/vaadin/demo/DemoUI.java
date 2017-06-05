@@ -3,6 +3,7 @@ package org.vaadin.demo;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
+import org.joda.time.DateTimeZone;
 import org.vaadin.components.datetimefields.*;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -49,7 +50,7 @@ public class DemoUI extends UI {
         final DateTimeField dateTimeField = (DateTimeField) fieldGroup.buildAndBind("dateTime");
         final IntervalField intervalField = (IntervalField) fieldGroup.buildAndBind("interval");
         final LocalTimeField localTimeField = (LocalTimeField) fieldGroup.buildAndBind("localTime");
-        final DateTimeAndLocalTimeField dateTimeAndLocalTimeField = (DateTimeAndLocalTimeField) fieldGroup.buildAndBind("dateTimeAndLocalTime");
+        final DateTimeAndLocalTimeField dateTimeAndLocalTimeField = new DateTimeAndLocalTimeField(DateTimeZone.UTC, Locale.getDefault(), null);
 
 
         dateTimeField.addDateTimeShortCutListener(DateTimeShortCutListenerUtil.generateShortCutListener(Locale.getDefault()));
@@ -69,6 +70,7 @@ public class DemoUI extends UI {
             public void buttonClick(ClickEvent event) {
                 try {
                     fieldGroup.commit();
+                    demoBean.setDateTimeAndLocalTime(dateTimeAndLocalTimeField.getValue());
                 } catch (CommitException e) {
                     e.printStackTrace();
                 }
