@@ -38,7 +38,7 @@ public class DemoUI extends UI {
     protected void init(VaadinRequest request) {
 
         final DateTimeDemoBean demoBean = new DateTimeDemoBean();
-        BeanItem<DateTimeDemoBean> demoBeanItem = new BeanItem<DateTimeDemoBean>(demoBean);
+        final BeanItem<DateTimeDemoBean> demoBeanItem = new BeanItem<DateTimeDemoBean>(demoBean);
 
         final FieldGroup fieldGroup = new FieldGroup(demoBeanItem);
 
@@ -49,7 +49,7 @@ public class DemoUI extends UI {
         final DateTimeField dateTimeField = (DateTimeField) fieldGroup.buildAndBind("dateTime");
         final IntervalField intervalField = (IntervalField) fieldGroup.buildAndBind("interval");
         final LocalTimeField localTimeField = (LocalTimeField) fieldGroup.buildAndBind("localTime");
-        final DateTimeAndLocalTimeField dateTimeAndLocalTimeField = (DateTimeAndLocalTimeField) fieldGroup.buildAndBind("dateTimeAndlocalTime");
+        final DateTimeAndLocalTimeField dateTimeAndLocalTimeField = (DateTimeAndLocalTimeField) fieldGroup.buildAndBind("dateTimeAndLocalTime");
 
 
         dateTimeField.addDateTimeShortCutListener(DateTimeShortCutListenerUtil.generateShortCutListener(Locale.getDefault()));
