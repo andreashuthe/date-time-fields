@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Created by andreas_h on 04.06.17.
  */
-public class DateTimeShortCutDateListenerUtil {
+public class DateTimeShortCutListenerUtil {
     public final static int NOW = 0;
     public final static int YESTERDAY = -1;
     public final static int TOMORROW = 1;

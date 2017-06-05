@@ -21,7 +21,7 @@ import java.util.Locale;
 /**
  * Created by andreas_h on 05.06.17.
  */
-public class DateTimeAndTimeField extends CustomField<DateTime> implements IDateTimeField{
+public class DateTimeAndLocalTimeField extends CustomField<DateTime> implements IDateTimeField {
 
     private static final DateTimeZone innerDateTimeZone = DateTimeZone.UTC;
 
@@ -40,15 +40,15 @@ public class DateTimeAndTimeField extends CustomField<DateTime> implements IDate
 
     private final DateTimeFormatter dateFormatter;
 
-    public DateTimeAndTimeField(final DateTimeZone dateTimeZone, final Locale locale, String dateFormat) {
+    public DateTimeAndLocalTimeField(final DateTimeZone dateTimeZone, final Locale locale, String dateFormat) {
         this(DateTimeAndDefaultTimeEnum.DEFAULT, dateTimeZone, locale, dateFormat);
     }
 
-    public DateTimeAndTimeField(final DateTimeAndDefaultTimeEnum defaultTime, final DateTimeZone dateTimeZone, final Locale locale, String dateFormat) {
+    public DateTimeAndLocalTimeField(final DateTimeAndDefaultTimeEnum defaultTime, final DateTimeZone dateTimeZone, final Locale locale, String dateFormat) {
         this(defaultTime.getTimeValue(), dateTimeZone, locale, dateFormat);
     }
 
-    public DateTimeAndTimeField(final String defaultTime, final DateTimeZone dateTimeZone, final Locale locale, String dateFormatPattern) {
+    public DateTimeAndLocalTimeField(final String defaultTime, final DateTimeZone dateTimeZone, final Locale locale, String dateFormatPattern) {
         super();
         this.defaultTime = defaultTime;
         this.dateTimeZone = dateTimeZone;

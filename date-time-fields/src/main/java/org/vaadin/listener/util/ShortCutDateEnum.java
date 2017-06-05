@@ -8,19 +8,19 @@ import java.util.*;
  * Created by andreas_h on 04.06.17.
  */
 public enum ShortCutDateEnum {
-    DE_NOW("Heute", Locale.GERMAN, KeyboardEvent.KeyCode.H, DateTimeShortCutDateListenerUtil.NOW),
-    DE_TOMORROW("Morgen", Locale.GERMAN, KeyboardEvent.KeyCode.M, DateTimeShortCutDateListenerUtil.TOMORROW),
-    DE_YESTERDAY("Gestern", Locale.GERMAN, KeyboardEvent.KeyCode.G, DateTimeShortCutDateListenerUtil.YESTERDAY),
-    EN_NOW("Now", Locale.ENGLISH, KeyboardEvent.KeyCode.N, DateTimeShortCutDateListenerUtil.NOW),
-    EN_TOMORROW("Tomorrow", Locale.ENGLISH, KeyboardEvent.KeyCode.T, DateTimeShortCutDateListenerUtil.TOMORROW),
-    EN_YESTERDAY("Yesterday", Locale.ENGLISH, KeyboardEvent.KeyCode.Y, DateTimeShortCutDateListenerUtil.YESTERDAY),
-    NOW("Now", null, KeyboardEvent.KeyCode.N, DateTimeShortCutDateListenerUtil.NOW),
-    TOMORROW("Tomorrow", null, KeyboardEvent.KeyCode.T, DateTimeShortCutDateListenerUtil.TOMORROW),
-    YESTERDAY("Yesterday", null, KeyboardEvent.KeyCode.Y, DateTimeShortCutDateListenerUtil.YESTERDAY),
-    PLUS("ADD ONE", null, KeyboardEvent.KeyCode.NUM_PLUS, DateTimeShortCutDateListenerUtil.PLUS),
-    MINUS("ADD ONE", null, KeyboardEvent.KeyCode.NUM_MINUS, DateTimeShortCutDateListenerUtil.MINUS),
-    PLUS_KEY("ADD ONE", null, KeyboardEvent.KeyCode.EQUALS, DateTimeShortCutDateListenerUtil.PLUS),
-    MINUS_KEY("ADD ONE", null, KeyboardEvent.KeyCode.DASH, DateTimeShortCutDateListenerUtil.MINUS)
+    DE_NOW("Heute", Locale.GERMAN, KeyboardEvent.KeyCode.H, DateTimeShortCutListenerUtil.NOW),
+    DE_TOMORROW("Morgen", Locale.GERMAN, KeyboardEvent.KeyCode.M, DateTimeShortCutListenerUtil.TOMORROW),
+    DE_YESTERDAY("Gestern", Locale.GERMAN, KeyboardEvent.KeyCode.G, DateTimeShortCutListenerUtil.YESTERDAY),
+    EN_NOW("Now", Locale.ENGLISH, KeyboardEvent.KeyCode.N, DateTimeShortCutListenerUtil.NOW),
+    EN_TOMORROW("Tomorrow", Locale.ENGLISH, KeyboardEvent.KeyCode.T, DateTimeShortCutListenerUtil.TOMORROW),
+    EN_YESTERDAY("Yesterday", Locale.ENGLISH, KeyboardEvent.KeyCode.Y, DateTimeShortCutListenerUtil.YESTERDAY),
+    NOW("Now", null, KeyboardEvent.KeyCode.N, DateTimeShortCutListenerUtil.NOW),
+    TOMORROW("Tomorrow", null, KeyboardEvent.KeyCode.T, DateTimeShortCutListenerUtil.TOMORROW),
+    YESTERDAY("Yesterday", null, KeyboardEvent.KeyCode.Y, DateTimeShortCutListenerUtil.YESTERDAY),
+    PLUS("ADD ONE", null, KeyboardEvent.KeyCode.NUM_PLUS, DateTimeShortCutListenerUtil.PLUS),
+    MINUS("ADD ONE", null, KeyboardEvent.KeyCode.NUM_MINUS, DateTimeShortCutListenerUtil.MINUS),
+    PLUS_KEY("ADD ONE", null, KeyboardEvent.KeyCode.EQUALS, DateTimeShortCutListenerUtil.PLUS),
+    MINUS_KEY("ADD ONE", null, KeyboardEvent.KeyCode.DASH, DateTimeShortCutListenerUtil.MINUS)
     ;
 
 

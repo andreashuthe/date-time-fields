@@ -5,7 +5,7 @@ import com.vaadin.ui.DateField;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.vaadin.components.datetimefields.DateTimeField;
-import org.vaadin.listener.util.DateTimeShortCutDateListenerUtil;
+import org.vaadin.listener.util.DateTimeShortCutListenerUtil;
 import org.vaadin.listener.util.ShortCutDateEnum;
 
 import java.util.Locale;
@@ -60,21 +60,21 @@ public class DateTimeShortCutListener extends ShortcutListener {
         final DateTime dateTime;
 
         switch (getShortCutDateEnum().getType()){
-            case DateTimeShortCutDateListenerUtil.PLUS:
+            case DateTimeShortCutListenerUtil.PLUS:
                 final DateTime dateTimeFromFieldPlus = getDateTimeFromFieldOrNow(dateTimeField);
                 dateTime = dateTimeFromFieldPlus.plusDays(1);
                 break;
-            case DateTimeShortCutDateListenerUtil.MINUS:
+            case DateTimeShortCutListenerUtil.MINUS:
                 final DateTime dateTimeFromFieldMinus = getDateTimeFromFieldOrNow(dateTimeField);
                 dateTime = dateTimeFromFieldMinus.minusDays(1);
                 break;
-            case DateTimeShortCutDateListenerUtil.YESTERDAY:
+            case DateTimeShortCutListenerUtil.YESTERDAY:
                 dateTime = DateTime.now(dateTimeZone).minusDays(1);
                 break;
-            case DateTimeShortCutDateListenerUtil.TOMORROW:
+            case DateTimeShortCutListenerUtil.TOMORROW:
                 dateTime = DateTime.now(dateTimeZone).plusDays(1);
                 break;
-            case DateTimeShortCutDateListenerUtil.NOW:
+            case DateTimeShortCutListenerUtil.NOW:
                 dateTime = DateTime.now(dateTimeZone);
                 break;
             default:
