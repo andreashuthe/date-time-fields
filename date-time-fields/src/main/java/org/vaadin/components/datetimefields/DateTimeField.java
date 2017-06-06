@@ -1,9 +1,11 @@
 package org.vaadin.components.datetimefields;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.vaadin.event.ShortcutListener;
 import org.joda.time.DateTime;
 
 import com.vaadin.data.Property;

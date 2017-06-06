@@ -2,12 +2,14 @@ package org.vaadin.listener;
 
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.ui.DateField;
+import com.vaadin.ui.Notification;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.vaadin.components.datetimefields.DateTimeField;
 import org.vaadin.listener.util.DateTimeShortCutListenerUtil;
 import org.vaadin.listener.util.ShortCutDateEnum;
 
+import java.awt.event.KeyEvent;
 import java.util.Locale;
 
 /**
@@ -15,6 +17,7 @@ import java.util.Locale;
  */
 public class DateTimeShortCutListener extends ShortcutListener {
 
+    private boolean devMode = false;
     private final Locale locale;
     private final DateTimeZone dateTimeZone;
     private final ShortCutDateEnum shortCutDateEnum;
@@ -83,6 +86,14 @@ public class DateTimeShortCutListener extends ShortcutListener {
 
         if (dateTime != null) {
             dateTimeField.setValue(dateTime.toDate());
+            populateNotificationFromDevMode();
+
+        }
+    }
+
+    private void populateNotificationFromDevMode() {
+        if (devMode) {
+            Notification.show("Key '" + KeyEvent.getKeyText(getShortCutDateEnum().getKeyCode()) + "' pressed.");
         }
     }
 
@@ -104,5 +115,13 @@ public class DateTimeShortCutListener extends ShortcutListener {
 
     public ShortCutDateEnum getShortCutDateEnum() {
         return shortCutDateEnum;
+    }
+
+    public void enableDevMode() {
+        this.devMode = true;
+    }
+
+    public void disableDevMode() {
+        this.devMode = false;
     }
 }

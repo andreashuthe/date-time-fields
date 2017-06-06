@@ -18,8 +18,10 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import org.vaadin.listener.DateTimeShortCutListener;
 import org.vaadin.listener.util.DateTimeShortCutListenerUtil;
 
+import java.util.List;
 import java.util.Locale;
 
 @Title("date-time-fields Add-on Demo")
@@ -53,9 +55,18 @@ public class DemoUI extends UI {
         final DateTimeAndLocalTimeField dateTimeAndLocalTimeField = new DateTimeAndLocalTimeField(DateTimeZone.UTC, Locale.getDefault(), null);
 
 
-        dateTimeField.addDateTimeShortCutListener(DateTimeShortCutListenerUtil.generateShortCutListener(Locale.getDefault()));
-        intervalField.addDateTimeShortCutListener(DateTimeShortCutListenerUtil.generateShortCutListener(Locale.getDefault()));
-        dateTimeAndLocalTimeField.addDateTimeShortCutListener(DateTimeShortCutListenerUtil.generateShortCutListener(Locale.getDefault()));
+        final List<DateTimeShortCutListener> shortCutListeners = DateTimeShortCutListenerUtil.generateShortCutListener(Locale.getDefault());
+        if (shortCutListeners != null && shortCutListeners.size() > 1) {
+            for (DateTimeShortCutListener shortCutListener : shortCutListeners) {
+                shortCutListener.enableDevMode();
+            }
+        }
+        dateTimeField.addDateTimeShortCutListener(shortCutListeners);
+
+        intervalField.addDateTimeShortCutListener(shortCutListeners);
+
+        dateTimeAndLocalTimeField.addDateTimeShortCutListener(shortCutListeners);
+
 
         // Show it in the middle of the screen
         final VerticalLayout layout = new VerticalLayout();
@@ -76,10 +87,10 @@ public class DemoUI extends UI {
                 }
                 final StringBuilder valueString = new StringBuilder();
 
-                valueString.append("dateTime: ").append(demoBean.getDateTime().toString()).append("\n");
-                valueString.append("interval: ").append(demoBean.getInterval().toString()).append("\n");
-                valueString.append("localTime: ").append(demoBean.getLocalTime().toString());
-                valueString.append("dateTimeAndlocalTime: ").append(demoBean.getDateTimeAndLocalTime().toString());
+                valueString.append("dateTime: ").append(demoBean.getDateTime() == null ? "no Value" : demoBean.getDateTime().toString()).append("\n");
+                valueString.append("interval: ").append(demoBean.getInterval() == null ? "no Value" : demoBean.getInterval().toString()).append("\n");
+                valueString.append("localTime: ").append(demoBean.getLocalTime() == null ? "no Value" : demoBean.getLocalTime().toString().toString()).append("\n");
+                valueString.append("dateTimeAndlocalTime: ").append(demoBean.getDateTimeAndLocalTime() == null ? "no Value" : demoBean.getDateTimeAndLocalTime().toString());
 
                 Notification.show(valueString.toString());
             }

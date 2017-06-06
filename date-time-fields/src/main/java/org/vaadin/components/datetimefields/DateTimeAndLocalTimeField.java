@@ -53,9 +53,8 @@ public class DateTimeAndLocalTimeField extends CustomField<DateTime> implements 
         this.defaultTime = defaultTime;
         this.dateTimeZone = dateTimeZone;
         this.defaultLocale = locale;
-        this.dateFormatter = reversableDateTimeFormat.forPattern(dateFormatPattern);
-
         this.dateTimeField = new DateTimeField(dateTimeZone);
+        this.dateFormatter = reversableDateTimeFormat.forPattern(dateFormatPattern == null ? dateTimeField.getDateFormat() : dateFormatPattern);
         this.localTimeField = new LocalTimeField();
 
         intiFields();
@@ -104,12 +103,11 @@ public class DateTimeAndLocalTimeField extends CustomField<DateTime> implements 
     @Override
     public DateTime getValue() {
 
-        DateTime dateTime = (DateTime) dateTimeField.getConverter().convertToModel(dateTimeField.getValue(), DateTime.class, Locale.getDefault());
+        DateTime dateTime = (DateTime) dateTimeField.getConverter().convertToModel(dateTimeField.getValue(), DateTime.class, getDefaultLocale());
 
-        final LocalTime localTime = (LocalTime) localTimeField.getConverter().convertToModel(localTimeField.getValue(), LocalTime.class, Locale.getDefault());
+        final LocalTime localTime = (LocalTime) localTimeField.getConverter().convertToModel(localTimeField.getValue(), LocalTime.class, getDefaultLocale());
 
         if (localTime == null){
-
             return null;
         } else {
             dateTime = dateTime.withHourOfDay(localTime.getHourOfDay());
@@ -185,4 +183,5 @@ public class DateTimeAndLocalTimeField extends CustomField<DateTime> implements 
     public DateTimeFormatter getDateFormatter() {
         return dateFormatter;
     }
+
 }

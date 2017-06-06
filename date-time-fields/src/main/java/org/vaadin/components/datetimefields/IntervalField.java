@@ -101,4 +101,5 @@ public class IntervalField extends CustomField<Interval> implements IDateTimeFie
         fromField.setEnabled(enabled);
         toField.setEnabled(enabled);
     }
+
 }

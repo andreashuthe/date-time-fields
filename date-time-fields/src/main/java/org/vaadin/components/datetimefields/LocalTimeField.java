@@ -67,6 +67,7 @@ public class LocalTimeField extends TextField {
     public LocalTimeField() {
         super();
         setConverter(new LocalTimeConverter(formatter));
+        setNullRepresentation("");
     }
 
     public LocalTimeField(Property<LocalTime> dataSource) throws IllegalArgumentException {
