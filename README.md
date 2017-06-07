@@ -99,4 +99,15 @@ fieldGroup.setFieldFactory(new JodaTimeFieldGroupFieldFactory());
 addComponent(fieldGroup.buildAndBind("dateTime"));
 ```
 
+Here is a simple example on how to try out the add-on component with the shortcut listener:
+```java
+final DateTimeDemoBean demoBean = new DateTimeDemoBean();
+BeanItem<DateTimeDemoBean> demoBeanItem = new BeanItem<DateTimeDemoBean>(demoBean);
+final FieldGroup fieldGroup = new FieldGroup(demoBeanItem);
+fieldGroup.setFieldFactory(new JodaTimeFieldGroupFieldFactory());
+final DateTimeField dateTimeField = (DateTimeField) fieldGroup.buildAndBind("dateTime");
+dateTimeField.addDateTimeShortCutListener(DateTimeShortCutListenerUtil.generateShortCutListener(Locale.getDefault())),
+addComponent(dateTimeField);
+```
+
 For a more comprehensive example, see [date-time-fields-demo/src/main/java/org/vaadin/demo/DemoUI.java](../../blob/master/date-time-fields-demo/src/main/java/org/vaadin/demo/DemoUI.java)
