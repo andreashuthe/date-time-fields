@@ -21,6 +21,36 @@ mvn jetty:run
 
 To see the demo, navigate to <http://localhost:8080/>
 
+### Date-Time-Fields Shortcuts
+
+By adding the shortcuts your customer will be able to enter dates in a very fast Way.
+
+Locale **EN** / **DEFAULT**
+
+Press _n_ -> **todays date**
+
+Press _t_ -> **tomorrows date**
+
+Press _y_ -> **yesterdays date**
+
+Press _+_ -> **add one day to date**
+
+Press _-_ -> **minus one day to date**
+ 
+Locale **DE** 
+
+Press _h_ -> **todays date**
+
+Press _m_ -> **tomorrows date**
+
+Press _g_ -> **yesterdays date**
+
+Press _+_ -> **add one day to date**
+
+Press _-_ -> **minus one day to date**
+
+This functionality is very useful for adding appointments, invoices and many other usecases.
+
 ### Debugging server-side
 
 If you have not already compiled the widgetset, do it now by running vaadin:install Maven target for date-time-fields-root project.
