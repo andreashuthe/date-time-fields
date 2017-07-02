@@ -2,6 +2,7 @@ package org.vaadin.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * Created by andreas_h on 05.06.17.
  */
 @Entity
+@Audited
 public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,8 +29,5 @@ public class Appointment implements Serializable {
 
     @Column (name="TO_DATE")
     @Getter @Setter private Long toDate;
-
-
-
 
 }

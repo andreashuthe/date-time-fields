@@ -10,6 +10,9 @@
 
 	<modules>
 		<module>date-time-fields</module>
+		<module>date-time-fields-demo-mvp</module>
+		<module>date-time-fields-demo-mvp-vaadin</module>
+		<module>date-time-fields-demo-eventbus</module>
 		<module>date-time-fields-demo</module>
 	</modules>
 
