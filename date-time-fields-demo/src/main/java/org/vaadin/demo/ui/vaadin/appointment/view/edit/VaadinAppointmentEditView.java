@@ -48,9 +48,13 @@ public class VaadinAppointmentEditView extends VaadinBaseEditView<Appointment> i
         };
 
         textFieldRemark = getVaadinComponentFactory().createTextFieldWithLabel("name", valueChangeListener, true);
+        dateTimeAndLocalTimeFieldFrom = getVaadinComponentFactory().createDateTimeAndLocalTimeField("fromDate", valueChangeListener, true);
+        dateTimeAndLocalTimeFieldTo = getVaadinComponentFactory().createDateTimeAndLocalTimeField("toDate", valueChangeListener, true);
 
         super.initComponents(clazz);
         getFormLayout().with(textFieldRemark);
+        getFormLayout().with(dateTimeAndLocalTimeFieldFrom);
+        getFormLayout().with(dateTimeAndLocalTimeFieldTo);
         withStyleName(getName());
     }
 

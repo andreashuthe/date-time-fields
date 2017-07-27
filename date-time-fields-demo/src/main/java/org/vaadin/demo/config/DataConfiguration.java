@@ -4,8 +4,10 @@ package org.vaadin.demo.config;
  * Created by huth on 08.06.2017.
  */
 
+import org.apache.commons.lang.BooleanUtils;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -44,10 +46,10 @@ public class DataConfiguration {
     @Bean
     public DataSource dataSource(){
         final DriverManagerDataSource dataSource=new DriverManagerDataSource();
-        String username=evn.getProperty("jdbc.username");
-        String password=evn.getProperty("jdbc.password");
-        String url=evn.getProperty("jdbc.url");
-        String driverClassName=evn.getProperty("jdbc.driverClassName");
+        final String username=evn.getProperty("jdbc.username");
+        final String password=evn.getProperty("jdbc.password");
+        final String url=evn.getProperty("jdbc.url");
+        final String driverClassName=evn.getProperty("jdbc.driverClassName");
 
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUsername(username);
@@ -62,17 +64,14 @@ public class DataConfiguration {
     public EntityManagerFactory entityManagerFactory(){
         final HibernateJpaVendorAdapter vendorAdapter=new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
-
-        final Properties jpaProperties=new Properties();
-        jpaProperties.put("showSql", evn.getProperty("showSql"));
-        jpaProperties.put("hibernate.hbm2ddl.auto", evn.getProperty("hibernate.hbm2ddl.auto"));
-        jpaProperties.put("hibernate.dialect", evn.getProperty("hibernate.dialect"));//""");
+        vendorAdapter.setGenerateDdl(BooleanUtils.toBoolean(evn.getProperty("generateDdl")));
+        vendorAdapter.setShowSql(BooleanUtils.toBoolean(evn.getProperty("showSql")));
+        vendorAdapter.setDatabasePlatform(evn.getProperty("hibernate.dialect"));
 
         final LocalContainerEntityManagerFactoryBean factory=new LocalContainerEntityManagerFactoryBean();
         factory.setDataSource(dataSource());
         factory.setPackagesToScan(evn.getProperty("packages.to.scan"));
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setJpaProperties(jpaProperties);
         factory.afterPropertiesSet();
         return factory.getObject();
     }

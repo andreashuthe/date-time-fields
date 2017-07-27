@@ -6,12 +6,16 @@ import com.vaadin.annotations.Title;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -24,29 +28,59 @@ import org.vaadin.components.datetimefields.DateTimeFieldGroupFieldFactory;
 import org.vaadin.components.datetimefields.IntervalField;
 import org.vaadin.components.datetimefields.LocalTimeField;
 import org.vaadin.demo.DateTimeDemoBean;
+import org.vaadin.demo.context.ISpringSecurityCallContext;
 import org.vaadin.demo.ui.vaadin.navigation.presenter.VaadinNavigationPresenter;
 import org.vaadin.eventbus.EventListener;
 import org.vaadin.listener.DateTimeShortCutListener;
 import org.vaadin.listener.util.DateTimeShortCutListenerUtil;
+import org.vaadin.mvp.base.presenter.VaadinNavigatablePresenter;
 import org.vaadin.mvp.event.NavigationEvent;
+import org.vaadin.viritin.layouts.MCssLayout;
+import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import java.util.List;
 import java.util.Locale;
 
-@SpringUI()
+@SpringUI(path = "/demo")
 @Title("date-time-fields Add-on Demo")
+@SpringViewDisplay
 @Theme("demotheme")
 @SuppressWarnings("serial")
-public class DemoUI extends UI implements EventListener<NavigationEvent<String>>{
-    @Autowired
-    private VaadinNavigationPresenter navigationPresenter;
-    @Autowired @Getter
-    SpringViewProvider viewProvider;
+public class DemoUI extends UI implements EventListener<NavigationEvent<String>>, ViewDisplay {
+    @Autowired private VaadinNavigationPresenter navigationPresenter;
+    @Autowired @Getter SpringViewProvider viewProvider;
+
+    @Autowired private ISpringSecurityCallContext callContext;
+
+    private MCssLayout header;
+    private MCssLayout content;
+    private MCssLayout footer;
 
     @Override
     protected void init(VaadinRequest request) {
+        initBaseContent();
 
-        initNavigationPresenter();
+        if (callContext.getUser() == null) {
+            navigate("loginPresenter");
+        } else {
+            initNavigationPresenter();
+            initContent();
+        }
+    }
+
+    private void initBaseContent() {
+        header = new MCssLayout();
+        content = new MCssLayout();
+        footer = new MCssLayout();
+
+        final MVerticalLayout root = new MVerticalLayout().withSpacing(false).withMargin(false).with(header, content, footer);
+        setContent(root);
+    }
+
+
+    private void initContent() {
+
+        content.removeAllComponents();
 
         final DateTimeDemoBean demoBean = new DateTimeDemoBean();
         final BeanItem<DateTimeDemoBean> demoBeanItem = new BeanItem<DateTimeDemoBean>(demoBean);
@@ -78,7 +112,7 @@ public class DemoUI extends UI implements EventListener<NavigationEvent<String>>
 
         // Show it in the middle of the screen
         final VerticalLayout layout = new VerticalLayout();
-        layout.addComponent(navigationPresenter.getView());
+
 
         layout.setSizeFull();
         layout.addComponent(dateTimeField);
@@ -106,18 +140,35 @@ public class DemoUI extends UI implements EventListener<NavigationEvent<String>>
             }
         }));
 
-        setContent(layout);
-
+        content.add(layout);
     }
+
 
     private void initNavigationPresenter() {
         navigationPresenter.init();
-
+        header.addComponent(navigationPresenter.getView());
     }
 
     @Override
     @Subscribe
     public void onEvent(NavigationEvent<String> event) {
-        int i = -0;
+        navigate(event.getValue());
+    }
+
+    @Override
+    public void showView(View view) {
+        if (view instanceof VaadinNavigatablePresenter) {
+            if (getContent() instanceof View) {
+                initContent();
+            } else {
+                content.removeAllComponents();
+                content.add((Component) ((VaadinNavigatablePresenter) view).getView());
+            }
+
+        }
+    }
+
+    private void navigate (String presenterName) {
+        getNavigator().navigateTo(presenterName);
     }
 }

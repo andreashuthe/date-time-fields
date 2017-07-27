@@ -15,10 +15,17 @@ import org.vaadin.mvp.handler.ValueChangedHandler;
  */
 public abstract class AppointmentEditPresenter<V extends AppointmentEditView> extends BaseEditPresenter<V, Appointment>  {
 
+    public static final String PRESENTER_NAME = "appointmentEditPresenter";
+
     @Autowired AppointmentRepository appointmentRepository;
 
     protected AppointmentEditPresenter(V view) {
         super(view);
+    }
+
+    @Override
+    public void init() {
+        super.init();
     }
 
     @Override

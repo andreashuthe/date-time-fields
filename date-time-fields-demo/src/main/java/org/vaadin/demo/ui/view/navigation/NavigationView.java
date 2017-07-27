@@ -1,6 +1,8 @@
 package org.vaadin.demo.ui.view.navigation;
 
 import org.vaadin.demo.model.NavigationItem;
+import org.vaadin.demo.model.menu.MenuModel;
+import org.vaadin.demo.model.tree.GenericTreeNode;
 import org.vaadin.mvp.base.view.View;
 import org.vaadin.mvp.handler.NavigationHandler;
 
@@ -15,5 +17,5 @@ public interface NavigationView extends View {
 
     void setNavigationHandler(NavigationHandler navigationHandler);
 
-    void initNavigation(List<NavigationItem> navigationItems);
+    void initMenu(GenericTreeNode<MenuModel> groupMenus);
 }

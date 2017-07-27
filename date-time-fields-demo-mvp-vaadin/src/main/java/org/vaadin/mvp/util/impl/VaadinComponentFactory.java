@@ -3,12 +3,14 @@ package org.vaadin.mvp.util.impl;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.converter.Converter;
 import com.vaadin.spring.annotation.SpringComponent;
+import javafx.scene.control.PasswordField;
 import org.joda.time.DateTimeZone;
 import org.springframework.cglib.core.Local;
 import org.vaadin.components.datetimefields.DateTimeAndLocalTimeField;
 import org.vaadin.mvp.util.IVaadinComponentFactory;
 import org.vaadin.viritin.MSize;
 import org.vaadin.viritin.button.MButton;
+import org.vaadin.viritin.fields.MPasswordField;
 import org.vaadin.viritin.fields.MTextField;
 import org.vaadin.viritin.layouts.MFormLayout;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
@@ -31,6 +33,12 @@ public class VaadinComponentFactory implements IVaadinComponentFactory {
 
     public MFormLayout createFormLayout() {
         return new MFormLayout().withSize(MSize.FULL_SIZE).withMargin(false);
+    }
+
+    public MPasswordField createPasswordField(String id, boolean required) {
+        final MPasswordField passwordField = new MPasswordField();
+        passwordField.withId(id);
+        return passwordField;
     }
 
     public MTextField createTextFieldWithLabel(String id) {

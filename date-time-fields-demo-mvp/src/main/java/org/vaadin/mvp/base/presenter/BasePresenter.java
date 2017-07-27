@@ -22,8 +22,6 @@ public abstract class BasePresenter<T extends View> implements Presenter<T> {
         this.view = view;
     }
 
-
-
     protected void init(){
         getView().init();
     }

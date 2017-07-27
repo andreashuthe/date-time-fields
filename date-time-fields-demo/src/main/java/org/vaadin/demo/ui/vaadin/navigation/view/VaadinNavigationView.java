@@ -3,19 +3,23 @@ package org.vaadin.demo.ui.vaadin.navigation.view;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.MenuBar;
 import de.steinwedel.messagebox.MessageBox;
 import lombok.Getter;
-import lombok.extern.apachecommons.CommonsLog;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.vaadin.demo.model.NavigationItem;
+import org.vaadin.demo.model.menu.GroupMenu;
+import org.vaadin.demo.model.menu.MenuModel;
+import org.vaadin.demo.model.tree.GenericTreeNode;
 import org.vaadin.demo.ui.vaadin.VaadinView;
 import org.vaadin.demo.ui.view.navigation.NavigationView;
 import org.vaadin.mvp.handler.NavigationHandler;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -51,53 +55,43 @@ public class VaadinNavigationView extends MVerticalLayout implements NavigationV
     }
 
     @Override
-    public void initNavigation(List<NavigationItem> navigationItems) {
-        if (CollectionUtils.isEmpty(navigationItems)){
-            MessageBox.createError().asModal(true).withData("No navigationItems found");
-        } else {
-            for (final NavigationItem navigationItem : navigationItems) {
-                addItem(navigationItem.getName(), navigationItem.getSpringViewName(), navigationItem.getParentId()== null ? null : navigationItem.getParentId() );
-            }
+    public void initMenu(GenericTreeNode<MenuModel> groupMenus) {
+        for (final GenericTreeNode<MenuModel> genericTreeNode : groupMenus.getChildren()) {
+            addMenuItem(null, genericTreeNode);
         }
     }
 
-    private void addItem(final String caption,
-                        final String viewName,
-                        final Long parentId) {
-
-        final boolean addCommand = StringUtils.isNotBlank(viewName) && getNavigationHandler() != null;
-        final MenuBar.Command menuCommand;
-        if (addCommand) {
-            menuCommand = new MenuBar.Command() {
-                @Override
-                public void menuSelected(final MenuBar.MenuItem selectedItem) {
-                    getNavigationHandler().navigateTo(viewName);
-                    if (previous != null) {
-                        previous.setStyleName(null);
-                    }
-                    selectedItem.setStyleName("checked");
-                    previous = selectedItem;
-                }
-            };
+    private MenuBar.MenuItem addMenuItem(MenuBar.MenuItem parent, final GenericTreeNode<MenuModel> menuModelGenericTreeNode) {
+        final MenuBar.MenuItem result;
+        if (parent == null) {
+            result = menuBar.addItem(menuModelGenericTreeNode.getData().getLabel(), null);
         } else {
-            menuCommand = null;
-        }
-
-        MenuBar.MenuItem menuItem = null;
-        if (parentId != null) {
-            for (final MenuBar.MenuItem item : menuBar.getItems()) {
-                if (item.getId() == (parentId.intValue())) {
-                    menuItem = item;
-                    break;
-                }
+            //final MenuBar.MenuItem parentItem = menuBar.addItem()
+            final boolean addCommand = StringUtils.isNotBlank(menuModelGenericTreeNode.getData().getClassString()) && CollectionUtils.isEmpty(menuModelGenericTreeNode.getChildren());
+            if (addCommand) {
+                final MenuBar.Command menuCommand = new MenuBar.Command() {
+                    @Override
+                    public void menuSelected(final MenuBar.MenuItem selectedItem) {
+                        getNavigationHandler().navigateTo(menuModelGenericTreeNode.getData().getClassString());
+                        if (previous != null) {
+                            previous.setStyleName(null);
+                        }
+                        selectedItem.setStyleName("checked");
+                        previous = selectedItem;
+                    }
+                };
+                result = parent.addItem(menuModelGenericTreeNode.getData().getLabel(), menuCommand);
+            } else {
+                result = parent.addItem(menuModelGenericTreeNode.getData().getLabel(), null);
             }
         }
-        if (menuItem == null) {
-            menuItem = menuBar.addItem(caption, menuCommand);
-            menuItem.setCheckable(false);
-        } else {
-            menuItem.addItem(caption, menuCommand).setCheckable(false);
+
+        if (CollectionUtils.isNotEmpty(menuModelGenericTreeNode.getChildren())) {
+            for (GenericTreeNode<MenuModel> genericTreeNode : menuModelGenericTreeNode.getChildren()) {
+                addMenuItem(result, genericTreeNode);
+            }
         }
+        return result;
     }
 
     @Override
