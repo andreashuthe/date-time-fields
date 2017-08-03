@@ -29,6 +29,7 @@ import org.vaadin.components.datetimefields.IntervalField;
 import org.vaadin.components.datetimefields.LocalTimeField;
 import org.vaadin.demo.DateTimeDemoBean;
 import org.vaadin.demo.context.ISpringSecurityCallContext;
+import org.vaadin.demo.ui.presenter.login.LoginPresenter;
 import org.vaadin.demo.ui.vaadin.navigation.presenter.VaadinNavigationPresenter;
 import org.vaadin.eventbus.EventListener;
 import org.vaadin.listener.DateTimeShortCutListener;
@@ -41,7 +42,7 @@ import org.vaadin.viritin.layouts.MVerticalLayout;
 import java.util.List;
 import java.util.Locale;
 
-@SpringUI(path = "/demo")
+@SpringUI(path = "/main")
 @Title("date-time-fields Add-on Demo")
 @SpringViewDisplay
 @Theme("demotheme")
@@ -60,12 +61,10 @@ public class DemoUI extends UI implements EventListener<NavigationEvent<String>>
     protected void init(VaadinRequest request) {
         initBaseContent();
 
-        if (callContext.getUser() == null) {
-            navigate("loginPresenter");
-        } else {
-            initNavigationPresenter();
-            initContent();
-        }
+
+        initNavigationPresenter();
+        initContent();
+
     }
 
     private void initBaseContent() {
@@ -160,6 +159,8 @@ public class DemoUI extends UI implements EventListener<NavigationEvent<String>>
         if (view instanceof VaadinNavigatablePresenter) {
             if (getContent() instanceof View) {
                 initContent();
+            } else if ( view instanceof LoginPresenter){
+
             } else {
                 content.removeAllComponents();
                 content.add((Component) ((VaadinNavigatablePresenter) view).getView());

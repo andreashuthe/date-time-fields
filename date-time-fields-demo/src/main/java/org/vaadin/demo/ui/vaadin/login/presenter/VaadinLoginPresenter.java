@@ -5,12 +5,13 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.vaadin.demo.ui.presenter.login.LoginPresenter;
 import org.vaadin.demo.ui.vaadin.login.view.VaadinLoginView;
 import org.vaadin.mvp.base.presenter.VaadinNavigatablePresenter;
-import org.vaadin.spring.security.shared.VaadinSharedSecurity;
 
 /**
  * Created by huth on 13.07.2017.
@@ -21,31 +22,14 @@ import org.vaadin.spring.security.shared.VaadinSharedSecurity;
 public class VaadinLoginPresenter extends LoginPresenter<VaadinLoginView> implements VaadinNavigatablePresenter<VaadinLoginView> {
 
     @Autowired
-    private VaadinSharedSecurity vaadinSecurity;
-
-    @Autowired
     public VaadinLoginPresenter(VaadinLoginView view) {
         super(view);
     }
 
     @Override
     protected void doLogin(String userName, String password, boolean remember) {
-
-        try {
-
-            final Authentication authentication = vaadinSecurity.login(userName, password, remember);
-            int i = 0;
-
-        } catch (AuthenticationException ex) {
-            log.error("AuthenticationFailed", ex);
-        } catch (Exception ex) {
-            log.error("", ex);
-
-        } finally {
-
-        }
-
-
+        Authentication auth = new UsernamePasswordAuthenticationToken(userName, password);
+        SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
     @Override

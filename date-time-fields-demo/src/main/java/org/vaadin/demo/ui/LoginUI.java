@@ -1,30 +1,37 @@
 package org.vaadin.demo.ui;
 
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewDisplay;
+import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
-import org.vaadin.demo.ui.presenter.login.LoginPresenter;
-import org.vaadin.mvp.base.presenter.VaadinNavigatablePresenter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.vaadin.demo.context.ISpringSecurityCallContext;
+import org.vaadin.demo.ui.vaadin.login.presenter.VaadinLoginPresenter;
 
 @SpringUI(path = "/login")
-@SpringView
-public class LoginUI extends UI implements ViewDisplay {
+@Title("date-time-fields Add-on Demo")
+@Theme("demotheme")
+@SuppressWarnings("serial")
+public class LoginUI extends UI {
+    @Autowired private VaadinLoginPresenter vaadinLoginPresenter;
+
+
+    @Autowired private ISpringSecurityCallContext callContext;
+
 
     @Override
     protected void init(VaadinRequest request) {
-
-        getNavigator().navigateTo(LoginPresenter.PRESENTER_NAME);
+        initContent();
     }
 
-    @Override
-    public void showView(View view) {
-        if (view instanceof VaadinNavigatablePresenter) {
-            setContent((Component) ((VaadinNavigatablePresenter) view).getView());
-            setSizeFull();
-        }
+
+
+
+    private void initContent() {
+        setContent(vaadinLoginPresenter.getView());
+        setSizeFull();
+
     }
+
 }

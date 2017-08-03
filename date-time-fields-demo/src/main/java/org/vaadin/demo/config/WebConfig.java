@@ -9,12 +9,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.vaadin.eventbus.EnableEventBus;
 import org.vaadin.eventbus.SpringEventBus;
-import org.vaadin.spring.http.HttpService;
-import org.vaadin.spring.security.annotation.EnableVaadinSharedSecurity;
-import org.vaadin.spring.security.config.VaadinSharedSecurityConfiguration;
-import org.vaadin.spring.security.shared.VaadinAuthenticationSuccessHandler;
-import org.vaadin.spring.security.shared.VaadinUrlAuthenticationSuccessHandler;
-import org.vaadin.spring.security.web.VaadinRedirectStrategy;
 
 /**
  * Created by huth on 16.06.2017.
