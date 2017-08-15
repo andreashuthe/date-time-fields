@@ -20,7 +20,7 @@ public class SpringCustomAuthProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         if (name.equals("admin") && password.equals("test")) {
             final List<GrantedAuthority> grantedAuthorities = Lists.newArrayList();
-            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
             final Authentication result = new UsernamePasswordAuthenticationToken(name, password, grantedAuthorities);
             return result;
         } else {

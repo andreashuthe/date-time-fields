@@ -14,15 +14,12 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             WEB-INF/applicationContext.xml,
+            WEB-INF/spring-security.xml,
         </param-value>
     </context-param>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-
-    <listener>
-        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
 
     <servlet>
@@ -33,7 +30,6 @@
             <param-value>org.vaadin.demo.ui.DemoUI</param-value>
         </init-param>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>VaadinApp</servlet-name>
         <url-pattern>/*</url-pattern>

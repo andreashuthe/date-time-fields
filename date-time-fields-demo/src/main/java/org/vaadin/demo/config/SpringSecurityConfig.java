@@ -12,10 +12,10 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
  *//**
  * Configure Spring Security.
  */
-@EnableWebSecurity
+
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired private SpringCustomAuthProvider customAuthenticationProvider;
+    private SpringCustomAuthProvider customAuthenticationProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -25,15 +25,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successForwardUrl("/main").permitAll();
 
         http.headers().frameOptions().sameOrigin();*/
-
+        http.authorizeRequests().antMatchers("/WEB-INF/**", "/VAADIN/**", "/PUSH/**", "/UIDL/**", "/HEARBEAT/**").permitAll().antMatchers("/").hasRole("USER");
         http.csrf().disable();
-        http.exceptionHandling()
-                .authenticationEntryPoint(
-                        new LoginUrlAuthenticationEntryPoint("/login/#!loginPresenter"))
-                .accessDeniedPage("/accessDenied").and().authorizeRequests()
-                .antMatchers("/VAADIN/**", "/PUSH/**", "/UIDL/**", "/login", "/login/**", "/error/**",
-                        "/accessDenied/**", "/vaadinServlet/**")
-                .permitAll().antMatchers("/main", "/**").fullyAuthenticated();
+        http.formLogin().loginPage("/");
     }
 
     @Autowired

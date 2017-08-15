@@ -7,6 +7,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -31,6 +32,7 @@ import org.vaadin.demo.DateTimeDemoBean;
 import org.vaadin.demo.context.ISpringSecurityCallContext;
 import org.vaadin.demo.ui.presenter.login.LoginPresenter;
 import org.vaadin.demo.ui.vaadin.navigation.presenter.VaadinNavigationPresenter;
+import org.vaadin.demo.ui.view.login.LoginView;
 import org.vaadin.eventbus.EventListener;
 import org.vaadin.listener.DateTimeShortCutListener;
 import org.vaadin.listener.util.DateTimeShortCutListenerUtil;
@@ -42,7 +44,7 @@ import org.vaadin.viritin.layouts.MVerticalLayout;
 import java.util.List;
 import java.util.Locale;
 
-@SpringUI(path = "/main")
+@SpringUI
 @Title("date-time-fields Add-on Demo")
 @SpringViewDisplay
 @Theme("demotheme")
@@ -64,6 +66,20 @@ public class DemoUI extends UI implements EventListener<NavigationEvent<String>>
 
         initNavigationPresenter();
         initContent();
+
+        getNavigator().addViewChangeListener(new ViewChangeListener() {
+            @Override
+            public boolean beforeViewChange(ViewChangeEvent event) {
+                boolean isLoggedIn = getSession().getAttribute("user") != null;
+                boolean isLoginView = event.getNewView() instanceof LoginView;
+                return false;
+            }
+
+            @Override
+            public void afterViewChange(ViewChangeEvent event) {
+
+            }
+        });
 
     }
 
