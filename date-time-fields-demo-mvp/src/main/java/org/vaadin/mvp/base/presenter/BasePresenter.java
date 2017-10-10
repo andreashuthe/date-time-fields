@@ -2,18 +2,18 @@ package org.vaadin.mvp.base.presenter;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
-import org.vaadin.eventbus.SpringEventBus;
 import org.vaadin.mvp.base.view.View;
+import org.vaadin.spring.events.EventBus;
+
+import javax.annotation.PreDestroy;
 
 /**
  * Created by huth on 08.06.2017.
  */
 public abstract class BasePresenter<T extends View> implements Presenter<T> {
 
-    @Autowired @Qualifier(value = "eventBus") @Getter private SpringEventBus eventBus;
+    @Autowired @Getter private EventBus.UIEventBus eventBus;
 
     private final @Getter T view;
 
@@ -23,6 +23,14 @@ public abstract class BasePresenter<T extends View> implements Presenter<T> {
     }
 
     protected void init(){
+        getEventBus().subscribe(this);
         getView().init();
+    }
+
+    @PreDestroy
+        // It's good manners to do this, even though we should be automatically unsubscribed
+        // when the UI is garbage collected
+    void destroy() {
+        getEventBus().unsubscribe(this);
     }
 }

@@ -17,6 +17,7 @@
         <spring.version>4.3.8.RELEASE</spring.version>
         <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
         <spring.integration.dsl.version>1.2.2.RELEASE</spring.integration.dsl.version>
+        <vaadin.version>7.7.10</vaadin.version>
         <Implementation-Version>${project.version}</Implementation-Version>
     </properties>
 
@@ -56,6 +57,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
             <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-spring</artifactId>
+            <version>1.2.0</version>
         </dependency>
 
         <dependency>
@@ -103,8 +110,12 @@
             <artifactId>commons-collections</artifactId>
             <version>3.2.2</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.16</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

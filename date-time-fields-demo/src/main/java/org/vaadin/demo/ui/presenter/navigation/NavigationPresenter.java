@@ -3,16 +3,19 @@ package org.vaadin.demo.ui.presenter.navigation;
 import com.google.gwt.thirdparty.guava.common.collect.Sets;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.vaadin.demo.event.LoginSuccessEvent;
+import org.vaadin.demo.event.NavigationEvent;
 import org.vaadin.demo.model.menu.GroupMenu;
 import org.vaadin.demo.model.menu.MenuModel;
 import org.vaadin.demo.model.tree.GenericTreeNode;
 import org.vaadin.demo.repositories.GroupMenuRepository;
 import org.vaadin.demo.repositories.MenuModelRepository;
 import org.vaadin.demo.repositories.NavigationItemRepository;
+import org.vaadin.demo.transfer.security.UserDto;
 import org.vaadin.demo.ui.view.navigation.NavigationView;
 import org.vaadin.mvp.base.presenter.BasePresenter;
-import org.vaadin.mvp.event.NavigationEvent;
 import org.vaadin.mvp.handler.NavigationHandler;
+import org.vaadin.spring.events.annotation.EventBusListenerMethod;
 
 import java.util.List;
 import java.util.Set;
@@ -33,7 +36,7 @@ public abstract class NavigationPresenter<V extends NavigationView> extends Base
         getView().setNavigationHandler(new NavigationHandler() {
             @Override
             public void navigateTo(String springViewName) {
-                getEventBus().publish(new NavigationEvent<String>(springViewName, String.class));
+                getEventBus().publish(this, new NavigationEvent(springViewName));
             }
         });
         initMenu();
@@ -54,6 +57,20 @@ public abstract class NavigationPresenter<V extends NavigationView> extends Base
         for (final MenuModel rootMenuModel : rootMenuModels) {
             appendChild(groupMenuSet, menuTree, rootMenuModel);
         }
+
+        final GenericTreeNode<MenuModel> dummyChild = new GenericTreeNode<>();
+        final MenuModel dummyMenuModel = new MenuModel();
+        dummyMenuModel.setId(-20L);
+        dummyMenuModel.setLabel("Dummy");
+        dummyChild.setData(dummyMenuModel);
+
+        final MenuModel dummyMenuModel1 = new MenuModel();
+        dummyMenuModel1.setId(-20L);
+        dummyMenuModel1.setLabel("Demo");
+        dummyMenuModel1.setClassString("demoPresenter");
+        dummyChild.addChild(dummyMenuModel1);
+        menuTree.addChild(dummyChild);
+
         getView().initMenu(menuTree);
     }
 
@@ -70,8 +87,21 @@ public abstract class NavigationPresenter<V extends NavigationView> extends Base
 
     }
 
+    @EventBusListenerMethod
+    public void onEvent(NavigationEvent navigationEvent) {
+        navigate(navigationEvent.getValue());
+    }
+
+    @EventBusListenerMethod
+    public void onEvent(LoginSuccessEvent loginSuccessEvent) {
+
+        login(loginSuccessEvent.getValue());
+    }
+
+    protected abstract void login(UserDto userDto);
 
 
+    protected abstract void navigate(String name);
 
     public NavigationPresenter(V view) {
         super(view);

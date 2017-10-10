@@ -10,8 +10,9 @@ import java.util.regex.Pattern;
 
 public class GenericTreeNode<T> {
 
-    public T data;
-    public List<GenericTreeNode<T>> children;
+    private List<GenericTreeNode<T>> children = new ArrayList<GenericTreeNode<T>>();
+    private GenericTreeNode<T> parent = null;
+    private T data = null;
 
     public GenericTreeNode() {
         super();
@@ -19,8 +20,16 @@ public class GenericTreeNode<T> {
     }
 
     public GenericTreeNode(T data) {
-        this();
-        setData(data);
+        this(data, null);
+    }
+
+    public GenericTreeNode(T data, GenericTreeNode<T> parent) {
+        this.data = data;
+        this.parent = parent;
+    }
+
+    public void setParent(GenericTreeNode<T> parent) {
+        this.parent = parent;
     }
 
     public List<GenericTreeNode<T>> getChildren() {
@@ -31,20 +40,48 @@ public class GenericTreeNode<T> {
         return getChildren().size();
     }
 
+    public boolean isRoot() {
+        return (this.parent == null);
+    }
+
+    public boolean isLeaf() {
+        if(this.children.size() == 0)
+            return true;
+        else
+            return false;
+    }
+
     public boolean hasChildren() {
-        return (getNumberOfChildren() > 0);
+        return (this.children != null && this.children.size() > 0);
     }
 
     public void setChildren(List<GenericTreeNode<T>> children) {
-        this.children = children;
+        if (children != null && children.size() > 0) {
+            final List<GenericTreeNode<T>> newChildren = new ArrayList<>(children.size());
+            for (final GenericTreeNode<T> child : children) {
+                child.setParent(this);
+                newChildren.add(child);
+            }
+        } else {
+            this.children = new ArrayList<GenericTreeNode<T>>();
+        }
+    }
+
+    public void addChild(T data) {
+        final GenericTreeNode<T> newChild = new GenericTreeNode<T>(data);
+        newChild.setParent(this);
+        this.children.add(newChild);
     }
 
     public void addChild(GenericTreeNode<T> child) {
-        children.add(child);
+        child.setParent(this);
+        this.children.add(child);
     }
 
-    public void addChildAt(int index, GenericTreeNode<T> child) throws IndexOutOfBoundsException {
-        children.add(index, child);
+    public void addChildAt(int index, T data) throws IndexOutOfBoundsException {
+        final GenericTreeNode<T> newChild = new GenericTreeNode<T>(data);
+        newChild.setParent(this);
+        this.children.add(index, newChild);
     }
 
     public void removeChildren() {
@@ -79,18 +116,22 @@ public class GenericTreeNode<T> {
         return getData().hashCode();
     }
 
-    public String toStringVerbose() {
-        String stringRepresentation = getData().toString() + ":[";
+    public GenericTreeNode<T> getParent() {
+        return parent;
+    }
 
-        for (GenericTreeNode<T> node : getChildren()) {
-            stringRepresentation += node.getData().toString() + ", ";
+    public String toStringVerbose() {
+        final StringBuilder sb = new StringBuilder(getData().toString() + ":[");
+
+        for (final GenericTreeNode<T> node : getChildren()) {
+            sb.append(node.getData().toString()).append(", ");
         }
 
         //Pattern.DOTALL causes ^ and $ to match. Otherwise it won't. It's retarded.
-        Pattern pattern = Pattern.compile(", $", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(stringRepresentation);
+        final Pattern pattern = Pattern.compile(", $", Pattern.DOTALL);
+        final Matcher matcher = pattern.matcher(sb.toString());
 
-        stringRepresentation = matcher.replaceFirst("");
+        String stringRepresentation = matcher.replaceFirst("");
         stringRepresentation += "]";
 
         return stringRepresentation;

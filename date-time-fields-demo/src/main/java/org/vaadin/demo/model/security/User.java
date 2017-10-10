@@ -36,7 +36,7 @@ public class User implements Serializable, UserDetails {
     @Getter @Setter private String username;
     @Getter @Setter private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @Getter @Setter private Group groups;
 
     @Override

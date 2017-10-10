@@ -2,13 +2,10 @@ package org.vaadin.demo.config;
 
 import com.vaadin.spring.annotation.EnableVaadin;
 import com.vaadin.spring.annotation.EnableVaadinNavigation;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.vaadin.eventbus.EnableEventBus;
-import org.vaadin.eventbus.SpringEventBus;
+import org.vaadin.spring.events.annotation.EnableEventBus;
 
 /**
  * Created by huth on 16.06.2017.
@@ -27,9 +24,5 @@ import org.vaadin.eventbus.SpringEventBus;
         "org.vaadin.demo.ui.view"
 })
 public class WebConfig {
-
-    @Bean protected SpringEventBus eventBus() {
-        return new SpringEventBus();
-    }
 
 }
