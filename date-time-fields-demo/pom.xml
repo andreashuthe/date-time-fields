@@ -312,10 +312,32 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.plugin.version}</version>
 				<configuration>
+					<httpConnector>
+						<!--host>localhost</host-->
+						<port>8888</port>
+					</httpConnector>
 					<webApp>
 						<contextPath>/</contextPath>
 					</webApp>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>4.2.0</version>
+				<configuration>
+					<url>jdbc:h2:file:./target/demodb</url>
+					<user>sa</user>
+					<password>sa</password>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.h2database</groupId>
+						<artifactId>h2</artifactId>
+						<version>1.4.196</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 
 		</plugins>

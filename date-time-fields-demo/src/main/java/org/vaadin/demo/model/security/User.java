@@ -33,6 +33,7 @@ public class User implements Serializable, UserDetails {
     @Getter @Setter private String name;
     @Getter @Setter private String preName;
     @Getter @Setter private String email;
+    @Column(name="LOGIN")
     @Getter @Setter private String username;
     @Getter @Setter private String password;
 
