@@ -43,16 +43,16 @@ public class DateTimeShortCutListenerUtil {
             for (final ShortCutDateEnum shortCutDateEnum : shortCutDateEnums) {
                 final DateTimeShortCutListener dateTimeShortCutListener = new DateTimeShortCutListener(locale, shortCutDateEnum, dateTimeZone);
                 shortcutListenerList.add(dateTimeShortCutListener);
-                listenerAdd.put(Integer.valueOf(shortCutDateEnum.getType()), Boolean.TRUE);
+                listenerAdd.put(Integer.valueOf(shortCutDateEnum.getKeyCode()), Boolean.TRUE);
             }
         }
 
         final List<ShortCutDateEnum> shortCutDateEnumsNoLocale = ShortCutDateEnum.getShortCutDateEnums();
         for (final ShortCutDateEnum shortCutDateEnum : shortCutDateEnumsNoLocale) {
-            if (!listenerAdd.containsKey(Integer.valueOf(shortCutDateEnum.getType()))) {
+            if (!listenerAdd.containsKey(Integer.valueOf(shortCutDateEnum.getKeyCode()))) {
                 final DateTimeShortCutListener dateTimeShortCutListener = new DateTimeShortCutListener(locale, shortCutDateEnum, dateTimeZone);
                 shortcutListenerList.add(dateTimeShortCutListener);
-                listenerAdd.put(Integer.valueOf(shortCutDateEnum.getType()), Boolean.TRUE);
+                listenerAdd.put(Integer.valueOf(shortCutDateEnum.getKeyCode()), Boolean.TRUE);
             }
         }
 

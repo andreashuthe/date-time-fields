@@ -71,19 +71,9 @@ public class VaadinDemoView extends MCssLayout implements DemoView {
         final LocalTimeField localTimeField = (LocalTimeField) fieldGroup.buildAndBind("localTime");
         final DateTimeAndLocalTimeField dateTimeAndLocalTimeField = new DateTimeAndLocalTimeField(DateTimeZone.UTC, Locale.getDefault(), null);
 
-
-        final List<DateTimeShortCutListener> shortCutListeners = DateTimeShortCutListenerUtil.generateShortCutListener(Locale.getDefault());
-        if (shortCutListeners != null && shortCutListeners.size() > 1) {
-            for (DateTimeShortCutListener shortCutListener : shortCutListeners) {
-                shortCutListener.enableDevMode();
-            }
-        }
-        dateTimeField.addDateTimeShortCutListener(shortCutListeners);
-
-        intervalField.addDateTimeShortCutListener(shortCutListeners);
-
-        dateTimeAndLocalTimeField.addDateTimeShortCutListener(shortCutListeners);
-
+        dateTimeField.populateDateTimeShortCutListener(Locale.getDefault());
+        intervalField.populateDateTimeShortCutListener(Locale.getDefault());
+        dateTimeAndLocalTimeField.populateDateTimeShortCutListener(Locale.getDefault());
 
         // Show it in the middle of the screen
         final VerticalLayout layout = new VerticalLayout();

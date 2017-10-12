@@ -5,6 +5,7 @@ import com.vaadin.data.util.converter.Converter;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
 import com.vaadin.ui.HorizontalLayout;
+import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalTime;
@@ -14,7 +15,9 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 import org.vaadin.components.datetimefields.util.DateTimeAndDefaultTimeEnum;
 import org.vaadin.components.datetimefields.util.ReversableDateTimeFormat;
 import org.vaadin.listener.DateTimeShortCutListener;
+import org.vaadin.listener.util.DateTimeShortCutListenerUtil;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -184,4 +187,17 @@ public class DateTimeAndLocalTimeField extends CustomField<DateTime> implements 
         return dateFormatter;
     }
 
+    @Override
+    public void populateDateTimeShortCutListener(Locale locale) {
+        final Collection<DateTimeShortCutListener> existingShortCutListeners = (Collection<DateTimeShortCutListener>) getListeners(DateTimeShortCutListener.class);
+        if (CollectionUtils.isNotEmpty(existingShortCutListeners)) {
+            for (final DateTimeShortCutListener shortCutListener : existingShortCutListeners) {
+                removeListener(DateTimeShortCutListener.class, shortCutListener);
+            }
+        }
+        final List<DateTimeShortCutListener> shortCutListeners = DateTimeShortCutListenerUtil.generateShortCutListener(locale, getDateTimeZone());
+        if (CollectionUtils.isNotEmpty(shortCutListeners)) {
+            this.addDateTimeShortCutListener(shortCutListeners);
+        }
+    }
 }

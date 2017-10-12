@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.vaadin.event.ShortcutListener;
+import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 
 import com.vaadin.data.Property;
@@ -13,6 +14,7 @@ import com.vaadin.data.util.converter.Converter;
 import com.vaadin.ui.DateField;
 import org.joda.time.DateTimeZone;
 import org.vaadin.listener.DateTimeShortCutListener;
+import org.vaadin.listener.util.DateTimeShortCutListenerUtil;
 
 public class DateTimeField extends DateField implements IDateTimeField {
 
@@ -98,5 +100,19 @@ public class DateTimeField extends DateField implements IDateTimeField {
     @Deprecated
     public Date getValue() {
         return super.getValue();
+    }
+
+    @Override
+    public void populateDateTimeShortCutListener(Locale locale) {
+        final Collection<DateTimeShortCutListener> existingShortCutListeners = (Collection<DateTimeShortCutListener>) getListeners(DateTimeShortCutListener.class);
+        if (CollectionUtils.isNotEmpty(existingShortCutListeners)) {
+            for (final DateTimeShortCutListener shortCutListener : existingShortCutListeners) {
+                removeListener(DateTimeShortCutListener.class, shortCutListener);
+            }
+        }
+        final List<DateTimeShortCutListener> shortCutListeners = DateTimeShortCutListenerUtil.generateShortCutListener(locale, getDefaultTimeZone());
+        if (CollectionUtils.isNotEmpty(shortCutListeners)) {
+            this.addDateTimeShortCutListener(shortCutListeners);
+        }
     }
 }

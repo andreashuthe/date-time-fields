@@ -4,7 +4,7 @@
 	<groupId>org.vaadin</groupId>
 	<artifactId>date-time-fields</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<name>date-time-fields Add-on</name>
 
 	<properties>
@@ -87,6 +87,12 @@
 			<artifactId>vaadin-client</artifactId>
 			<version>${vaadin.version}</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.2</version>
 		</dependency>
 
 		<!-- This can be replaced with TestNG or some other test framework supported 

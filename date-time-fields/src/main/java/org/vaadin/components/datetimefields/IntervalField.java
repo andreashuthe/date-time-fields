@@ -1,5 +1,6 @@
 package org.vaadin.components.datetimefields;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.Interval;
 
 import com.vaadin.data.Property;
@@ -10,8 +11,11 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import org.vaadin.listener.DateTimeShortCutListener;
+import org.vaadin.listener.util.DateTimeShortCutListenerUtil;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 @SuppressWarnings("serial")
 public class IntervalField extends CustomField<Interval> implements IDateTimeField{
@@ -102,4 +106,10 @@ public class IntervalField extends CustomField<Interval> implements IDateTimeFie
         toField.setEnabled(enabled);
     }
 
+
+    @Override
+    public void populateDateTimeShortCutListener(Locale locale) {
+        fromField.populateDateTimeShortCutListener(locale);
+        toField.populateDateTimeShortCutListener(locale);
+    }
 }
