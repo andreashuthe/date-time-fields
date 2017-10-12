@@ -19,7 +19,7 @@ cd demo
 mvn jetty:run
 ```
 
-To see the demo, navigate to <http://localhost:8080/>
+To see the demo, navigate to <http://localhost:8888/>
 
 ### Date-Time-Fields Shortcuts
 
@@ -97,6 +97,17 @@ BeanItem<DateTimeDemoBean> demoBeanItem = new BeanItem<DateTimeDemoBean>(demoBea
 final FieldGroup fieldGroup = new FieldGroup(demoBeanItem);
 fieldGroup.setFieldFactory(new JodaTimeFieldGroupFieldFactory());
 addComponent(fieldGroup.buildAndBind("dateTime"));
+```
+
+Here is a simple example on how to try out the add-on component with the shortcut listener added by the field:
+```java
+final DateTimeDemoBean demoBean = new DateTimeDemoBean();
+BeanItem<DateTimeDemoBean> demoBeanItem = new BeanItem<DateTimeDemoBean>(demoBean);
+final FieldGroup fieldGroup = new FieldGroup(demoBeanItem);
+fieldGroup.setFieldFactory(new JodaTimeFieldGroupFieldFactory());
+final DateTimeField dateTimeField = (DateTimeField) fieldGroup.buildAndBind("dateTime");
+dateTimeField.populateDateTimeShortCutListener(Locale.getDefault());
+addComponent(dateTimeField);
 ```
 
 Here is a simple example on how to try out the add-on component with the shortcut listener:
